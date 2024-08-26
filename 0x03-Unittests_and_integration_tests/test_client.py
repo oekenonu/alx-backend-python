@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Module to test GithubOrgClient"""
 import unittest
 from unittest.mock import patch, Mock
 from parameterized import parameterized
@@ -18,16 +19,10 @@ class TestGithubOrgClient(unittest.TestCase):
     @patch('client.get_json')  # Mock 'get_json' in the context of 'client'
     def test_org(self, org_name, expected_org_data, mock_get_json):
         """Test that GithubOrgClient.org returns the correct value"""
-        # Setup the mock to return the expected_org_data
+
         mock_get_json.return_value = expected_org_data
-
-        # Create an instance of GithubOrgClient
         client = GithubOrgClient(org_name)
-
-        # Call the org property
         org_data = client.org
-
-        # Assert get_json was called once with the expected URL
         mock_get_json.assert_called_once_with(
             f"https://api.github.com/orgs/{org_name}")
 
